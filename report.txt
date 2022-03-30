@@ -1,0 +1,14 @@
+
+Model Name: Деятельность компании
+Definition: Учебная модель, описывающая деятельность компании
+Scope: Общее управление бизнесом компании
+Viewpoint: Директор
+Time Frame: (AS-IS)
+Status: WORKING
+Purpose: Цель моделирования:
+Моделировать текущие бизнес–процессы компании
+Source: Данные взяты из книги
+Author Name: Ляшенко
+Creation Date: 30.03.2022
+System Last Revision Date: 30.03.2022
+User Last Revision Date: 30.03.2022
