@@ -1,0 +1,12 @@
+#ifndef ATMCONTROLLER_H_HEADER_INCLUDED_9DB9A29B
+#define ATMCONTROLLER_H_HEADER_INCLUDED_9DB9A29B
+
+// Implements the logic of ATM operation
+//##ModelId=5E0BB7FD034C
+class ATMController
+{
+};
+
+
+
+#endif /* ATMCONTROLLER_H_HEADER_INCLUDED_9DB9A29B */
