@@ -78,7 +78,119 @@
 	quid       	"39C9260C00D6"
 	exportControl 	"Public"
 	global     	TRUE
-	logical_models 	(list unit_reference_list)
+	logical_models 	(list unit_reference_list
+	    (object Class "Клиент банкомата"
+		quid       	"6245DA8900C0"
+		documentation 	"Любое физическое лицо, пользующееся услугами банкомата"
+		stereotype 	"Business Actor")
+	    (object Class "Банк"
+		quid       	"6245DF2300B4"
+		stereotype 	"Service")
+	    (object UseCase "Снятие наличных по кредитной карточке"
+		quid       	"6245DBAB031E"
+		documentation 	
+|Основной вариант использования для разрабатываемой 
+|модели банкомата
+		
+		stereotype 	"Business Use Case"
+		visible_modules 	(list dependency_list
+		    (object Dependency_Relationship
+			quid       	"6245DD3A01DE"
+			stereotype 	"include"
+			supplier   	"Use Case View::Проверка ПИН-кода"
+			quidu      	"6245DCD30202")))
+	    (object UseCase "Проверка ПИН-кода"
+		quid       	"6245DCD30202")
+	    (object UseCase "Получение справки о состоянии счета"
+		quid       	"6245DE7600DB"
+		stereotype 	"Business Use Case"
+		visible_modules 	(list dependency_list
+		    (object Dependency_Relationship
+			quid       	"6245DE9E02B5"
+			stereotype 	"include"
+			supplier   	"Use Case View::Проверка ПИН-кода"
+			quidu      	"6245DCD30202")))
+	    (object UseCase "Блокирование кредитной карточки"
+		quid       	"6245DEB002EB"
+		visible_modules 	(list dependency_list
+		    (object Dependency_Relationship
+			quid       	"6245DECA0190"
+			stereotype 	"extend"
+			supplier   	"Use Case View::Проверка ПИН-кода"
+			quidu      	"6245DCD30202")))
+	    (object Association "$UNNAMED$0"
+		quid       	"6245DC4500AF"
+		roles      	(list role_list
+		    (object Role "$UNNAMED$1"
+			quid       	"6245DC450388"
+			supplier   	"Use Case View::Снятие наличных по кредитной карточке"
+			quidu      	"6245DBAB031E"
+			is_navigable 	TRUE)
+		    (object Role "$UNNAMED$2"
+			quid       	"6245DC45038A"
+			supplier   	"Use Case View::Клиент банкомата"
+			quidu      	"6245DA8900C0")))
+	    (object Association "$UNNAMED$3"
+		quid       	"6245DD1E012C"
+		stereotype 	"include"
+		roles      	(list role_list
+		    (object Role "$UNNAMED$4"
+			quid       	"6245DD1E0343"
+			supplier   	"Use Case View::Проверка ПИН-кода"
+			quidu      	"6245DCD30202"
+			is_navigable 	TRUE)
+		    (object Role "$UNNAMED$5"
+			quid       	"6245DD1E0345"
+			supplier   	"Use Case View::Снятие наличных по кредитной карточке"
+			quidu      	"6245DBAB031E")))
+	    (object Association "$UNNAMED$6"
+		quid       	"6245DE9701D4"
+		roles      	(list role_list
+		    (object Role "$UNNAMED$7"
+			quid       	"6245DE980099"
+			supplier   	"Use Case View::Получение справки о состоянии счета"
+			quidu      	"6245DE7600DB"
+			is_navigable 	TRUE)
+		    (object Role "$UNNAMED$8"
+			quid       	"6245DE98009B"
+			supplier   	"Use Case View::Клиент банкомата"
+			quidu      	"6245DA8900C0")))
+	    (object Association "$UNNAMED$9"
+		quid       	"6245DEC001B7"
+		roles      	(list role_list
+		    (object Role "$UNNAMED$10"
+			quid       	"6245DEC103D4"
+			supplier   	"Use Case View::Проверка ПИН-кода"
+			quidu      	"6245DCD30202"
+			is_navigable 	TRUE)
+		    (object Role "$UNNAMED$11"
+			quid       	"6245DEC103D7"
+			supplier   	"Use Case View::Блокирование кредитной карточки"
+			quidu      	"6245DEB002EB")))
+	    (object Association "$UNNAMED$12"
+		quid       	"6245E8070077"
+		roles      	(list role_list
+		    (object Role "$UNNAMED$13"
+			quid       	"6245E80702AF"
+			supplier   	"Use Case View::Банк"
+			quidu      	"6245DF2300B4"
+			is_navigable 	TRUE)
+		    (object Role "$UNNAMED$14"
+			quid       	"6245E80702B4"
+			supplier   	"Use Case View::Получение справки о состоянии счета"
+			quidu      	"6245DE7600DB")))
+	    (object Association "$UNNAMED$15"
+		quid       	"6245E80B005B"
+		roles      	(list role_list
+		    (object Role "$UNNAMED$16"
+			quid       	"6245E80B02AE"
+			supplier   	"Use Case View::Банк"
+			quidu      	"6245DF2300B4"
+			is_navigable 	TRUE)
+		    (object Role "$UNNAMED$17"
+			quid       	"6245E80B02B3"
+			supplier   	"Use Case View::Снятие наличных по кредитной карточке"
+			quidu      	"6245DBAB031E"))))
 	logical_presentations 	(list unit_reference_list
 	    (object UseCaseDiagram "Main"
 		quid       	"39C9261001B7"
@@ -88,41 +200,9 @@
 		max_width  	21600
 		origin_x   	0
 		origin_y   	0
-		items      	(list diagram_item_list))))
-    root_category 	(object Class_Category "Logical View"
-	quid       	"39C9260C00D5"
-	exportControl 	"Public"
-	global     	TRUE
-	subsystem  	"Component View"
-	quidu      	"39C9260C00D7"
-	logical_models 	(list unit_reference_list
-	    (object Class_Category "javax"
-		is_unit    	TRUE
-		is_loaded  	FALSE
-		file_name  	"$FRAMEWORK_PATH\\Shared Components\\j2ee_javax.cat"
-		quid       	"39C926610018")
-	    (object Class_Category "java"
-		is_unit    	TRUE
-		is_loaded  	FALSE
-		file_name  	"$FRAMEWORK_PATH\\Shared Components\\j2se_1_3_java.cat"
-		quid       	"39C92661003B")
-	    (object Class_Category "org"
-		is_unit    	TRUE
-		is_loaded  	FALSE
-		file_name  	"$FRAMEWORK_PATH\\Shared Components\\j2se_1_3_org.cat"
-		quid       	"39C92693036F"))
-	logical_presentations 	(list unit_reference_list
-	    (object ClassDiagram "Package Hierarchy"
-		quid       	"39C9261001B8"
-		title      	"Package Hierarchy"
-		zoom       	100
-		max_height 	28350
-		max_width  	21600
-		origin_x   	0
-		origin_y   	0
 		items      	(list diagram_item_list
-		    (object CategoryView "Logical View::java" @1
-			location   	(208, 272)
+		    (object UseCaseView "Use Case View::Блокирование кредитной карточки" @1
+			location   	(3040, 1408)
 			font       	(object Font
 			    size       	10
 			    face       	"Arial"
@@ -135,19 +215,19 @@
 			    default_color 	TRUE)
 			label      	(object ItemLabel
 			    Parent_View 	@1
-			    location   	(64, 188)
+			    location   	(3040, 1546)
+			    anchor_loc 	1
 			    nlines     	2
-			    max_width  	288
+			    max_width  	630
 			    justify    	0
-			    label      	"java")
+			    label      	"Блокирование кредитной карточки")
 			icon_style 	"Icon"
 			line_color 	3342489
-			fill_color 	16777215
-			quidu      	"39C92661003B"
-			width      	300
-			height     	180)
-		    (object CategoryView "Logical View::javax" @2
-			location   	(656, 272)
+			fill_color 	13434879
+			quidu      	"6245DEB002EB"
+			height     	118)
+		    (object UseCaseView "Use Case View::Проверка ПИН-кода" @2
+			location   	(2128, 1408)
 			font       	(object Font
 			    size       	10
 			    face       	"Arial"
@@ -160,19 +240,60 @@
 			    default_color 	TRUE)
 			label      	(object ItemLabel
 			    Parent_View 	@2
-			    location   	(512, 188)
+			    location   	(2128, 1546)
+			    anchor_loc 	1
 			    nlines     	2
-			    max_width  	288
+			    max_width  	630
 			    justify    	0
-			    label      	"javax")
+			    label      	"Проверка ПИН-кода")
 			icon_style 	"Icon"
 			line_color 	3342489
-			fill_color 	16777215
-			quidu      	"39C926610018"
-			width      	300
-			height     	180)
-		    (object CategoryView "Logical View::org" @3
-			location   	(1104, 272)
+			fill_color 	13434879
+			quidu      	"6245DCD30202"
+			height     	118)
+		    (object DependencyView "" @3
+			font       	(object Font
+			    size       	10
+			    face       	"Arial"
+			    charSet    	204
+			    bold       	FALSE
+			    italics    	FALSE
+			    underline  	FALSE
+			    strike     	FALSE
+			    color      	0
+			    default_color 	TRUE)
+			stereotype 	(object SegLabel @4
+			    Parent_View 	@3
+			    location   	(2582, 1528)
+			    font       	(object Font
+				size       	10
+				face       	"Arial"
+				charSet    	204
+				bold       	FALSE
+				italics    	FALSE
+				underline  	FALSE
+				strike     	FALSE
+				color      	0
+				default_color 	TRUE)
+			    anchor     	10
+			    anchor_loc 	1
+			    nlines     	1
+			    max_width  	450
+			    justify    	0
+			    label      	"<<extend>>"
+			    pctDist    	0.500000
+			    height     	120
+			    orientation 	0)
+			line_color 	3342489
+			quidu      	"6245DECA0190"
+			client     	@1
+			supplier   	@2
+			vertices   	(list Points
+			    (2928, 1408)
+			    (2236, 1408))
+			line_style 	0)
+		    (object UseCaseView "Use Case View::Получение справки о состоянии счета" @5
+			location   	(2112, 1952)
 			font       	(object Font
 			    size       	10
 			    face       	"Arial"
@@ -184,29 +305,563 @@
 			    color      	0
 			    default_color 	TRUE)
 			label      	(object ItemLabel
-			    Parent_View 	@3
-			    location   	(960, 188)
+			    Parent_View 	@5
+			    location   	(2111, 2127)
+			    anchor_loc 	1
 			    nlines     	2
-			    max_width  	288
+			    max_width  	879
 			    justify    	0
-			    label      	"org")
+			    label      	"Получение справки о состоянии счета")
+			icon       	"Business Use Case"
 			icon_style 	"Icon"
 			line_color 	3342489
-			fill_color 	16777215
-			quidu      	"39C92693036F"
-			width      	300
-			height     	180)))
-	    (object ClassDiagram "Legend"
-		quid       	"39CD51840059"
-		title      	"Legend"
+			fill_color 	13434879
+			quidu      	"6245DE7600DB"
+			width      	306)
+		    (object DependencyView "" @6
+			font       	(object Font
+			    size       	10
+			    face       	"Arial"
+			    charSet    	204
+			    bold       	FALSE
+			    italics    	FALSE
+			    underline  	FALSE
+			    strike     	FALSE
+			    color      	0
+			    default_color 	TRUE)
+			stereotype 	(object SegLabel @7
+			    Parent_View 	@6
+			    location   	(1997, 1711)
+			    font       	(object Font
+				size       	10
+				face       	"Arial"
+				charSet    	204
+				bold       	FALSE
+				italics    	FALSE
+				underline  	FALSE
+				strike     	FALSE
+				color      	0
+				default_color 	TRUE)
+			    anchor     	10
+			    anchor_loc 	1
+			    nlines     	1
+			    max_width  	450
+			    justify    	0
+			    label      	"<<include>>"
+			    pctDist    	0.500000
+			    height     	120
+			    orientation 	0)
+			line_color 	3342489
+			quidu      	"6245DE9E02B5"
+			client     	@5
+			supplier   	@2
+			vertices   	(list Points
+			    (2112, 1857)
+			    (2121, 1571))
+			line_style 	0)
+		    (object ClassView "Class" "Use Case View::Клиент банкомата" @8
+			ShowCompartmentStereotypes 	TRUE
+			SuppressAttribute 	TRUE
+			SuppressOperation 	TRUE
+			IncludeAttribute 	TRUE
+			IncludeOperation 	TRUE
+			location   	(992, 1376)
+			font       	(object Font
+			    size       	10
+			    face       	"Arial"
+			    charSet    	204
+			    bold       	FALSE
+			    italics    	FALSE
+			    underline  	FALSE
+			    strike     	FALSE
+			    color      	0
+			    default_color 	TRUE)
+			label      	(object ItemLabel
+			    Parent_View 	@8
+			    location   	(991, 1584)
+			    anchor_loc 	1
+			    nlines     	2
+			    max_width  	570
+			    justify    	0
+			    label      	"Клиент банкомата")
+			icon       	"Business Actor"
+			icon_style 	"Icon"
+			line_color 	3342489
+			fill_color 	13434879
+			quidu      	"6245DA8900C0"
+			width      	202
+			annotation 	8
+			autoResize 	TRUE)
+		    (object AssociationViewNew "$UNNAMED$6" @9
+			location   	(1525, 1648)
+			font       	(object Font
+			    size       	10
+			    face       	"Arial"
+			    charSet    	204
+			    bold       	FALSE
+			    italics    	FALSE
+			    underline  	FALSE
+			    strike     	FALSE
+			    color      	0
+			    default_color 	TRUE)
+			stereotype 	TRUE
+			line_color 	3342489
+			quidu      	"6245DE9701D4"
+			roleview_list 	(list RoleViews
+			    (object RoleView "$UNNAMED$7" @10
+				Parent_View 	@9
+				location   	(533, 272)
+				stereotype 	TRUE
+				line_color 	3342489
+				quidu      	"6245DE980099"
+				client     	@9
+				supplier   	@5
+				vertices   	(list Points
+				    (1525, 1648)
+				    (1960, 1872))
+				line_style 	0)
+			    (object RoleView "$UNNAMED$8" @11
+				Parent_View 	@9
+				location   	(533, 272)
+				stereotype 	TRUE
+				line_color 	3342489
+				quidu      	"6245DE98009B"
+				client     	@9
+				supplier   	@8
+				vertices   	(list Points
+				    (1525, 1648)
+				    (1090, 1424))
+				line_style 	0)))
+		    (object ClassView "Class" "Use Case View::Банк" @12
+			ShowCompartmentStereotypes 	TRUE
+			IncludeAttribute 	TRUE
+			IncludeOperation 	TRUE
+			location   	(3824, 1472)
+			font       	(object Font
+			    size       	10
+			    face       	"Arial"
+			    charSet    	204
+			    bold       	FALSE
+			    italics    	FALSE
+			    underline  	FALSE
+			    strike     	FALSE
+			    color      	0
+			    default_color 	TRUE)
+			label      	(object ItemLabel
+			    Parent_View 	@12
+			    location   	(3712, 1443)
+			    fill_color 	13434879
+			    nlines     	1
+			    max_width  	224
+			    justify    	0
+			    label      	"Банк")
+			stereotype 	(object ItemLabel
+			    Parent_View 	@12
+			    location   	(3712, 1393)
+			    fill_color 	13434879
+			    anchor     	10
+			    nlines     	1
+			    max_width  	222
+			    justify    	0
+			    label      	"<<Service>>")
+			icon_style 	"Icon"
+			line_color 	3342489
+			fill_color 	13434879
+			quidu      	"6245DF2300B4"
+			width      	242
+			height     	182
+			annotation 	8
+			autoResize 	TRUE)
+		    (object AssociationViewNew "$UNNAMED$12" @13
+			location   	(2982, 1705)
+			font       	(object Font
+			    size       	10
+			    face       	"Arial"
+			    charSet    	204
+			    bold       	FALSE
+			    italics    	FALSE
+			    underline  	FALSE
+			    strike     	FALSE
+			    color      	0
+			    default_color 	TRUE)
+			stereotype 	TRUE
+			line_color 	3342489
+			quidu      	"6245E8070077"
+			roleview_list 	(list RoleViews
+			    (object RoleView "$UNNAMED$13" @14
+				Parent_View 	@13
+				location   	(870, -247)
+				stereotype 	TRUE
+				line_color 	3342489
+				quidu      	"6245E80702AF"
+				client     	@13
+				supplier   	@12
+				vertices   	(list Points
+				    (2982, 1705)
+				    (3702, 1505))
+				line_style 	0)
+			    (object RoleView "$UNNAMED$14" @15
+				Parent_View 	@13
+				location   	(870, -247)
+				stereotype 	TRUE
+				line_color 	3342489
+				quidu      	"6245E80702B4"
+				client     	@13
+				supplier   	@5
+				vertices   	(list Points
+				    (2982, 1705)
+				    (2262, 1906))
+				line_style 	0)))
+		    (object UseCaseView "Use Case View::Снятие наличных по кредитной карточке" @16
+			location   	(2128, 880)
+			font       	(object Font
+			    size       	10
+			    face       	"Arial"
+			    charSet    	204
+			    bold       	FALSE
+			    italics    	FALSE
+			    underline  	FALSE
+			    strike     	FALSE
+			    color      	0
+			    default_color 	TRUE)
+			label      	(object ItemLabel
+			    Parent_View 	@16
+			    location   	(2127, 1055)
+			    anchor_loc 	1
+			    nlines     	2
+			    max_width  	879
+			    justify    	0
+			    label      	"Снятие наличных по кредитной карточке")
+			icon       	"Business Use Case"
+			icon_style 	"Icon"
+			line_color 	3342489
+			fill_color 	13434879
+			quidu      	"6245DBAB031E"
+			width      	306)
+		    (object AssociationViewNew "$UNNAMED$0" @17
+			location   	(1423, 1185)
+			font       	(object Font
+			    size       	10
+			    face       	"Arial"
+			    charSet    	204
+			    bold       	FALSE
+			    italics    	FALSE
+			    underline  	FALSE
+			    strike     	FALSE
+			    color      	0
+			    default_color 	TRUE)
+			stereotype 	TRUE
+			line_color 	3342489
+			quidu      	"6245DC4500AF"
+			roleview_list 	(list RoleViews
+			    (object RoleView "$UNNAMED$1" @18
+				Parent_View 	@17
+				location   	(-33, 193)
+				stereotype 	TRUE
+				line_color 	3342489
+				quidu      	"6245DC450388"
+				client     	@17
+				supplier   	@16
+				vertices   	(list Points
+				    (1423, 1185)
+				    (1756, 1040))
+				line_style 	0)
+			    (object RoleView "$UNNAMED$2" @19
+				Parent_View 	@17
+				location   	(-33, 193)
+				stereotype 	TRUE
+				line_color 	3342489
+				quidu      	"6245DC45038A"
+				client     	@17
+				supplier   	@8
+				vertices   	(list Points
+				    (1423, 1185)
+				    (1090, 1330))
+				line_style 	0)))
+		    (object DependencyView "" @20
+			font       	(object Font
+			    size       	10
+			    face       	"Arial"
+			    charSet    	204
+			    bold       	FALSE
+			    italics    	FALSE
+			    underline  	FALSE
+			    strike     	FALSE
+			    color      	0
+			    default_color 	TRUE)
+			stereotype 	(object SegLabel @21
+			    Parent_View 	@20
+			    location   	(2248, 1215)
+			    font       	(object Font
+				size       	10
+				face       	"Arial"
+				charSet    	204
+				bold       	FALSE
+				italics    	FALSE
+				underline  	FALSE
+				strike     	FALSE
+				color      	0
+				default_color 	TRUE)
+			    anchor     	10
+			    anchor_loc 	1
+			    nlines     	1
+			    max_width  	450
+			    justify    	0
+			    label      	"<<include>>"
+			    pctDist    	0.500000
+			    height     	120
+			    orientation 	0)
+			line_color 	3342489
+			quidu      	"6245DD3A01DE"
+			client     	@16
+			supplier   	@2
+			vertices   	(list Points
+			    (2128, 1080)
+			    (2128, 1350))
+			line_style 	0)
+		    (object AssociationViewNew "$UNNAMED$15" @22
+			location   	(3099, 1218)
+			font       	(object Font
+			    size       	10
+			    face       	"Arial"
+			    charSet    	204
+			    bold       	FALSE
+			    italics    	FALSE
+			    underline  	FALSE
+			    strike     	FALSE
+			    color      	0
+			    default_color 	TRUE)
+			stereotype 	TRUE
+			line_color 	3342489
+			quidu      	"6245E80B005B"
+			roleview_list 	(list RoleViews
+			    (object RoleView "$UNNAMED$16" @23
+				Parent_View 	@22
+				location   	(971, 338)
+				stereotype 	TRUE
+				line_color 	3342489
+				quidu      	"6245E80B02AE"
+				client     	@22
+				supplier   	@12
+				vertices   	(list Points
+				    (3099, 1218)
+				    (3702, 1429))
+				line_style 	0)
+			    (object RoleView "$UNNAMED$17" @24
+				Parent_View 	@22
+				location   	(971, 338)
+				stereotype 	TRUE
+				line_color 	3342489
+				quidu      	"6245E80B02B3"
+				client     	@22
+				supplier   	@16
+				vertices   	(list Points
+				    (3099, 1218)
+				    (2497, 1007))
+				line_style 	0)))))))
+    root_category 	(object Class_Category "Logical View"
+	quid       	"39C9260C00D5"
+	exportControl 	"Public"
+	global     	TRUE
+	subsystem  	"Component View"
+	quidu      	"39C9260C00D7"
+	logical_models 	(list unit_reference_list
+	    (object Class "ATMTransaction"
+		quid       	"6245EF370333"
+		stereotype 	"entity"
+		operations 	(list Operations
+		    (object Operation "createANewTransaction"
+			quid       	"6245F38B02F7"
+			documentation 	"Вызывается после того, как кредитная карточка вставлена в Устройство чтения карточки"
+			concurrency 	"Sequential"
+			opExportControl 	"Public"
+			uid        	0)
+		    (object Operation "checkTtheCorrectnessOfThePIN"
+			quid       	"6245F5010003"
+			documentation 	"Вызывается после того, как клиент ввел значение ПИН-кода с клавиатуры банкомата"
+			result     	"bool"
+			concurrency 	"Sequential"
+			opExportControl 	"Public"
+			uid        	0)
+		    (object Operation "completeTheTransaction"
+			quid       	"6245F54A01FE"
+			documentation 	"Вызывается после завершения всех действий банкомата по обслуживанию клиента"
+			concurrency 	"Sequential"
+			opExportControl 	"Public"
+			uid        	0))
+		class_attributes 	(list class_attribute_list
+		    (object ClassAttribute "cardID"
+			quid       	"6245F22C001F"
+			documentation 	"Устройство чтения карточки считывает значение этого атрибута с кредитной карточки клиента"
+			type       	"int"
+			exportControl 	"Public"
+			Containment 	"By Value")
+		    (object ClassAttribute "valueOfThePIN"
+			quid       	"6245F44F030E"
+			documentation 	"Устройство чтения карточки считывает значение этого атрибута с кредитной карточки клиента"
+			type       	"int"
+			exportControl 	"Public")
+		    (object ClassAttribute "enteredPINCode"
+			quid       	"6245F4880197"
+			documentation 	"Значение этого атрибута вводится клиентом с клавиатуры банкомата"
+			type       	"int"
+			exportControl 	"Public")
+		    (object ClassAttribute "theAmountOfCashEntered"
+			quid       	"6245F4C000DA"
+			documentation 	"Значение этого атрибута вводится клиентом с клавиатуры банкомата"
+			type       	"double"
+			exportControl 	"Public"))
+		language   	"ANSI C++"
+		persistence 	"Persistent")
+	    (object Class "ATMController"
+		quid       	"6245F13C01DC"
+		documentation 	"Реализует логику функционирования банкомата"
+		stereotype 	"control"
+		superclasses 	(list inheritance_relationship_list
+		    (object Inheritance_Relationship
+			quid       	"6245F76D0206"
+			label      	"Inherits"
+			supplier   	"Logical View::Controller"
+			quidu      	"6245F6D00196"))
+		realized_interfaces 	(list realize_rel_list
+		    (object Realize_Relationship
+			quid       	"6245F76703D6"
+			supplier   	"Logical View::Controller"
+			quidu      	"6245F6D00196"))
+		language   	"ANSI C++")
+	    (object Class "CardReader"
+		quid       	"6245F18D01BD"
+		documentation 	"Устанавливается на банкомате"
+		stereotype 	"boundary"
+		operations 	(list Operations
+		    (object Operation "readTheCardID"
+			quid       	"6245F95002E2"
+			documentation 	"Вызывается после того, как кредитная карточка вставлена в Устройство чтения карточки"
+			result     	"int"
+			concurrency 	"Sequential"
+			opExportControl 	"Public"
+			uid        	0)
+		    (object Operation "readPIN"
+			quid       	"6245F993037C"
+			documentation 	"Вызывается после того, как кредитная карточка вставлена в Устройство чтения карточки"
+			result     	"int"
+			concurrency 	"Sequential"
+			opExportControl 	"Public"
+			uid        	0)
+		    (object Operation "returnCard"
+			quid       	"6245F9BE0238"
+			documentation 	"Вызывается после завершения транзакции"
+			concurrency 	"Sequential"
+			opExportControl 	"Public"
+			uid        	0)
+		    (object Operation "blockCard"
+			quid       	"6245F9D803C0"
+			documentation 	"Вызывается после того, как установлен факт утраты кредитной карточки владельцем"
+			concurrency 	"Sequential"
+			opExportControl 	"Public"
+			uid        	0))
+		language   	"ANSI C++")
+	    (object Class "IControllerBank"
+		quid       	"6245F1C502BD"
+		stereotype 	"Interface"
+		operations 	(list Operations
+		    (object Operation "checkTheCardID"
+			quid       	"6245F7ED01C1"
+			parameters 	(list Parameters
+			    (object Parameter "id"
+				quid       	"6245F819007F"
+				type       	"int"))
+			result     	"bool"
+			concurrency 	"Sequential"
+			opExportControl 	"Public"
+			uid        	0)
+		    (object Operation "openAClientAccount"
+			quid       	"6245F84E016D"
+			parameters 	(list Parameters
+			    (object Parameter "id"
+				quid       	"6245F866039C"
+				type       	"int"))
+			concurrency 	"Sequential"
+			opExportControl 	"Public"
+			uid        	0)
+		    (object Operation "checkBalance"
+			quid       	"6245F885019E"
+			parameters 	(list Parameters
+			    (object Parameter "id"
+				quid       	"6245F8980387"
+				type       	"int")
+			    (object Parameter "amount"
+				quid       	"6245F8AC038E"
+				type       	"double"))
+			result     	"bool"
+			concurrency 	"Sequential"
+			opExportControl 	"Public"
+			uid        	0)
+		    (object Operation "reduceMoney"
+			quid       	"6245F8EB01E5"
+			parameters 	(list Parameters
+			    (object Parameter "id"
+				quid       	"6245F8FE010A"
+				type       	"int")
+			    (object Parameter "amount"
+				quid       	"6245F91C027D"
+				type       	"double"))
+			result     	"bool"
+			concurrency 	"Sequential"
+			opExportControl 	"Public"
+			uid        	0))
+		language   	"ANSI C++")
+	    (object Class "Controller"
+		quid       	"6245F6D00196"
+		documentation 	"Устанавливается на банкомате"
+		language   	"ANSI C++"
+		abstract   	TRUE)
+	    (object Class "ATMScreen"
+		quid       	"6245F9FC02A7"
+		stereotype 	"boundary"
+		language   	"ANSI C++")
+	    (object Association "Creates"
+		quid       	"6245F59A0179"
+		roles      	(list role_list
+		    (object Role "$UNNAMED$18"
+			quid       	"6245F59B00AB"
+			supplier   	"Logical View::ATMTransaction"
+			quidu      	"6245EF370333"
+			client_cardinality 	(value cardinality "1..n")
+			is_navigable 	TRUE)
+		    (object Role "$UNNAMED$19"
+			quid       	"6245F59B00AD"
+			supplier   	"Logical View::ATMController"
+			quidu      	"6245F13C01DC"
+			client_cardinality 	(value cardinality "1")
+			is_aggregate 	TRUE)))
+	    (object Association "$UNNAMED$20"
+		quid       	"6245F70F01CB"
+		roles      	(list role_list
+		    (object Role "$UNNAMED$21"
+			quid       	"6245F7100081"
+			supplier   	"Logical View::Controller"
+			quidu      	"6245F6D00196"
+			is_navigable 	TRUE)
+		    (object Role "$UNNAMED$22"
+			quid       	"6245F7100083"
+			supplier   	"Logical View::ATMController"
+			quidu      	"6245F13C01DC"))))
+	logical_presentations 	(list unit_reference_list
+	    (object ClassDiagram "Диаграмма классов ATM"
+		quid       	"39C9261001B8"
+		title      	"Диаграмма классов ATM"
 		zoom       	100
 		max_height 	28350
 		max_width  	21600
 		origin_x   	0
 		origin_y   	0
 		items      	(list diagram_item_list
-		    (object NoteView @4
-			location   	(224, 624)
+		    (object ClassView "Class" "Logical View::CardReader" @25
+			ShowCompartmentStereotypes 	TRUE
+			IncludeAttribute 	TRUE
+			IncludeOperation 	TRUE
+			location   	(1728, 1888)
 			font       	(object Font
 			    size       	10
 			    face       	"Arial"
@@ -217,12 +872,46 @@
 			    strike     	FALSE
 			    color      	0
 			    default_color 	TRUE)
+			label      	(object ItemLabel
+			    Parent_View 	@25
+			    location   	(1727, 2044)
+			    anchor_loc 	1
+			    nlines     	2
+			    max_width  	654
+			    justify    	0
+			    label      	"CardReader")
+			icon       	"boundary"
+			icon_style 	"Icon"
 			line_color 	3342489
-			fill_color 	12632256
-			width      	300
-			height     	132)
-		    (object NoteView @5
-			location   	(704, 624)
+			fill_color 	13434879
+			quidu      	"6245F18D01BD"
+			compartment 	(object Compartment
+			    Parent_View 	@25
+			    location   	(1560, 2085)
+			    font       	(object Font
+				size       	10
+				face       	"Arial"
+				charSet    	204
+				bold       	FALSE
+				italics    	FALSE
+				underline  	FALSE
+				strike     	FALSE
+				color      	0
+				default_color 	TRUE)
+			    icon_style 	"Icon"
+			    anchor     	2
+			    nlines     	5
+			    max_width  	331
+			    justify    	0)
+			width      	230
+			height     	154
+			annotation 	8
+			autoResize 	TRUE)
+		    (object ClassView "Class" "Logical View::IControllerBank" @26
+			ShowCompartmentStereotypes 	TRUE
+			IncludeAttribute 	TRUE
+			IncludeOperation 	TRUE
+			location   	(2976, 1152)
 			font       	(object Font
 			    size       	10
 			    face       	"Arial"
@@ -233,12 +922,46 @@
 			    strike     	FALSE
 			    color      	0
 			    default_color 	TRUE)
+			label      	(object ItemLabel
+			    Parent_View 	@26
+			    location   	(2975, 1260)
+			    anchor_loc 	1
+			    nlines     	2
+			    max_width  	282
+			    justify    	0
+			    label      	"IControllerBank")
+			icon       	"Interface"
+			icon_style 	"Icon"
 			line_color 	3342489
-			fill_color 	8421631
-			width      	300
-			height     	132)
-		    (object NoteView @6
-			location   	(1200, 624)
+			fill_color 	13434879
+			quidu      	"6245F1C502BD"
+			compartment 	(object Compartment
+			    Parent_View 	@26
+			    location   	(2758, 1301)
+			    font       	(object Font
+				size       	10
+				face       	"Arial"
+				charSet    	204
+				bold       	FALSE
+				italics    	FALSE
+				underline  	FALSE
+				strike     	FALSE
+				color      	0
+				default_color 	TRUE)
+			    icon_style 	"Icon"
+			    anchor     	2
+			    nlines     	5
+			    max_width  	431
+			    justify    	0)
+			width      	58
+			height     	58
+			annotation 	8
+			autoResize 	TRUE)
+		    (object ClassView "Class" "Logical View::ATMTransaction" @27
+			ShowCompartmentStereotypes 	TRUE
+			IncludeAttribute 	TRUE
+			IncludeOperation 	TRUE
+			location   	(704, 1376)
 			font       	(object Font
 			    size       	10
 			    face       	"Arial"
@@ -249,12 +972,45 @@
 			    strike     	FALSE
 			    color      	0
 			    default_color 	TRUE)
+			label      	(object ItemLabel
+			    Parent_View 	@27
+			    location   	(704, 1532)
+			    anchor_loc 	1
+			    nlines     	2
+			    max_width  	427
+			    justify    	0
+			    label      	"ATMTransaction")
+			icon       	"entity"
+			icon_style 	"Icon"
 			line_color 	3342489
-			fill_color 	12615680
-			width      	300
-			height     	132)
-		    (object NoteView @7
-			location   	(1664, 624)
+			fill_color 	13434879
+			quidu      	"6245EF370333"
+			compartment 	(object Compartment
+			    Parent_View 	@27
+			    location   	(373, 1573)
+			    font       	(object Font
+				size       	10
+				face       	"Arial"
+				charSet    	204
+				bold       	FALSE
+				italics    	FALSE
+				underline  	FALSE
+				strike     	FALSE
+				color      	0
+				default_color 	TRUE)
+			    icon_style 	"Icon"
+			    anchor     	2
+			    nlines     	8
+			    max_width  	660
+			    justify    	0)
+			height     	154
+			annotation 	8
+			autoResize 	TRUE)
+		    (object ClassView "Class" "Logical View::ATMController" @28
+			ShowCompartmentStereotypes 	TRUE
+			IncludeAttribute 	TRUE
+			IncludeOperation 	TRUE
+			location   	(1680, 1408)
 			font       	(object Font
 			    size       	10
 			    face       	"Arial"
@@ -265,28 +1021,24 @@
 			    strike     	FALSE
 			    color      	0
 			    default_color 	TRUE)
+			label      	(object ItemLabel
+			    Parent_View 	@28
+			    location   	(1679, 1569)
+			    anchor_loc 	1
+			    nlines     	2
+			    max_width  	438
+			    justify    	0
+			    label      	"ATMController")
+			icon       	"control"
+			icon_style 	"Icon"
 			line_color 	3342489
-			fill_color 	16777215
-			width      	300
-			height     	132)
-		    (object Label @8
-			location   	(81, 369)
-			font       	(object Font
-			    size       	12
-			    face       	"Arial"
-			    charSet    	204
-			    bold       	TRUE
-			    italics    	FALSE
-			    underline  	FALSE
-			    strike     	FALSE
-			    color      	0
-			    default_color 	TRUE)
-			nlines     	1
-			max_width  	1163
-			justify    	1
-			label      	"J2EE: Java 2 Platform, Enterprise Edition - v 1.2.1")
-		    (object Label @9
-			location   	(96, 608)
+			fill_color 	13434879
+			quidu      	"6245F13C01DC"
+			width      	158
+			annotation 	8
+			autoResize 	TRUE)
+		    (object AssociationViewNew "Creates" @29
+			location   	(1190, 1389)
 			font       	(object Font
 			    size       	10
 			    face       	"Arial"
@@ -297,12 +1049,152 @@
 			    strike     	FALSE
 			    color      	0
 			    default_color 	TRUE)
-			nlines     	1
-			max_width  	268
-			justify    	1
-			label      	"Abstract Class")
-		    (object Label @10
-			location   	(592, 608)
+			label      	(object SegLabel @30
+			    Parent_View 	@29
+			    location   	(1190, 1330)
+			    font       	(object Font
+				size       	10
+				face       	"Arial"
+				charSet    	204
+				bold       	FALSE
+				italics    	TRUE
+				underline  	FALSE
+				strike     	FALSE
+				color      	0
+				default_color 	TRUE)
+			    anchor     	1
+			    anchor_loc 	1
+			    nlines     	1
+			    max_width  	450
+			    justify    	0
+			    label      	"Creates"
+			    pctDist    	0.500000
+			    height     	60
+			    orientation 	0)
+			stereotype 	TRUE
+			line_color 	3342489
+			quidu      	"6245F59A0179"
+			roleview_list 	(list RoleViews
+			    (object RoleView "$UNNAMED$18" @31
+				Parent_View 	@29
+				location   	(-474, 893)
+				font       	(object Font
+				    size       	10
+				    face       	"Arial"
+				    charSet    	204
+				    bold       	FALSE
+				    italics    	FALSE
+				    underline  	FALSE
+				    strike     	FALSE
+				    color      	0
+				    default_color 	TRUE)
+				stereotype 	TRUE
+				line_color 	3342489
+				quidu      	"6245F59B00AB"
+				client     	@29
+				supplier   	@27
+				vertices   	(list Points
+				    (1190, 1389)
+				    (778, 1376))
+				line_style 	0
+				label      	(object SegLabel @32
+				    Parent_View 	@31
+				    location   	(818, 1431)
+				    font       	(object Font
+					size       	10
+					face       	"Arial"
+					charSet    	204
+					bold       	FALSE
+					italics    	FALSE
+					underline  	FALSE
+					strike     	FALSE
+					color      	0
+					default_color 	TRUE)
+				    anchor     	2
+				    anchor_loc 	1
+				    nlines     	1
+				    max_width  	15
+				    justify    	0
+				    label      	"1..n"
+				    pctDist    	0.900000
+				    height     	54
+				    orientation 	0))
+			    (object RoleView "$UNNAMED$19" @33
+				Parent_View 	@29
+				location   	(-474, 893)
+				font       	(object Font
+				    size       	10
+				    face       	"Arial"
+				    charSet    	204
+				    bold       	FALSE
+				    italics    	FALSE
+				    underline  	FALSE
+				    strike     	FALSE
+				    color      	0
+				    default_color 	TRUE)
+				stereotype 	TRUE
+				line_color 	3342489
+				quidu      	"6245F59B00AD"
+				client     	@29
+				supplier   	@28
+				vertices   	(list Points
+				    (1190, 1389)
+				    (1602, 1402))
+				line_style 	0
+				label      	(object SegLabel @34
+				    Parent_View 	@33
+				    location   	(1560, 1455)
+				    font       	(object Font
+					size       	10
+					face       	"Arial"
+					charSet    	204
+					bold       	FALSE
+					italics    	FALSE
+					underline  	FALSE
+					strike     	FALSE
+					color      	0
+					default_color 	TRUE)
+				    anchor     	2
+				    anchor_loc 	1
+				    nlines     	1
+				    max_width  	15
+				    justify    	0
+				    label      	"1"
+				    pctDist    	0.900000
+				    height     	54
+				    orientation 	1))))
+		    (object ClassView "Class" "Logical View::Controller" @35
+			ShowCompartmentStereotypes 	TRUE
+			IncludeAttribute 	TRUE
+			IncludeOperation 	TRUE
+			location   	(1792, 1008)
+			font       	(object Font
+			    size       	10
+			    face       	"Arial"
+			    charSet    	204
+			    bold       	FALSE
+			    italics    	TRUE
+			    underline  	FALSE
+			    strike     	FALSE
+			    color      	0
+			    default_color 	TRUE)
+			label      	(object ItemLabel
+			    Parent_View 	@35
+			    location   	(1688, 957)
+			    fill_color 	13434879
+			    nlines     	1
+			    max_width  	208
+			    justify    	0
+			    label      	"Controller")
+			icon_style 	"Icon"
+			line_color 	3342489
+			fill_color 	13434879
+			quidu      	"6245F6D00196"
+			width      	226
+			height     	126
+			annotation 	8
+			autoResize 	TRUE)
+		    (object InheritView "Inherits" @36
 			font       	(object Font
 			    size       	10
 			    face       	"Arial"
@@ -313,12 +1205,42 @@
 			    strike     	FALSE
 			    color      	0
 			    default_color 	TRUE)
-			nlines     	1
-			max_width  	225
-			justify    	1
-			label      	"Final Class")
-		    (object Label @11
-			location   	(1104, 608)
+			label      	(object SegLabel @37
+			    Parent_View 	@36
+			    location   	(1679, 1182)
+			    font       	(object Font
+				size       	10
+				face       	"Arial"
+				charSet    	204
+				bold       	FALSE
+				italics    	TRUE
+				underline  	FALSE
+				strike     	FALSE
+				color      	0
+				default_color 	TRUE)
+			    anchor     	1
+			    anchor_loc 	1
+			    nlines     	1
+			    max_width  	141
+			    justify    	0
+			    label      	"Inherits"
+			    pctDist    	0.500000
+			    height     	60
+			    orientation 	0)
+			stereotype 	TRUE
+			line_color 	3342489
+			quidu      	"6245F76D0206"
+			client     	@28
+			supplier   	@35
+			vertices   	(list Points
+			    (1700, 1325)
+			    (1773, 1071))
+			line_style 	0)
+		    (object ClassView "Class" "Logical View::ATMScreen" @38
+			ShowCompartmentStereotypes 	TRUE
+			IncludeAttribute 	TRUE
+			IncludeOperation 	TRUE
+			location   	(2416, 640)
 			font       	(object Font
 			    size       	10
 			    face       	"Arial"
@@ -329,26 +1251,23 @@
 			    strike     	FALSE
 			    color      	0
 			    default_color 	TRUE)
-			nlines     	1
-			max_width  	206
-			justify    	1
-			label      	"Interface")
-		    (object Label @12
-			location   	(1552, 608)
-			font       	(object Font
-			    size       	10
-			    face       	"Arial"
-			    charSet    	204
-			    bold       	FALSE
-			    italics    	FALSE
-			    underline  	FALSE
-			    strike     	FALSE
-			    color      	0
-			    default_color 	TRUE)
-			nlines     	1
-			max_width  	144
-			justify    	1
-			label      	"Class")))))
+			label      	(object ItemLabel
+			    Parent_View 	@38
+			    location   	(2415, 796)
+			    anchor_loc 	1
+			    nlines     	2
+			    max_width  	661
+			    justify    	0
+			    label      	"ATMScreen")
+			icon       	"boundary"
+			icon_style 	"Icon"
+			line_color 	3342489
+			fill_color 	13434879
+			quidu      	"6245F9FC02A7"
+			width      	230
+			height     	154
+			annotation 	8
+			autoResize 	TRUE)))))
     root_subsystem 	(object SubSystem "Component View"
 	quid       	"39C9260C00D7"
 	physical_models 	(list unit_reference_list
